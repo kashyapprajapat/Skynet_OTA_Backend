@@ -6,6 +6,10 @@ const bookHotelSchema = new Schema({
     type: String,
     required: true
   },
+  city:{
+    type: String,
+    required: true
+  },
   checkInDate: {
     type: String,
     required: true,

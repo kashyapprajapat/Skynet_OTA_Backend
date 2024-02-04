@@ -6,6 +6,10 @@ const bookedHolidaySchema = new mongoose.Schema({
     required: [true, 'Holiday title is required'],
     trim: true,
   },
+  city:{
+    type: String,
+    required: true
+  },
   duration: {
     type: String,
     required: [true, 'Duration is required'],

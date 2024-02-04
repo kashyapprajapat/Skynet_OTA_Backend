@@ -304,6 +304,18 @@ app.post("/api/bookflight", async (req, res) => {
   }
 });
 
+// API endpoint to get all booked flight data
+app.get("/api/getallbookedflightdata", async (req, res) => {
+  try {
+    // Fetch all booked flight data from the database
+    const bookedFlights = await BookedFlight.find({});
+    res.json({ success: true, bookedFlights });
+  } catch (error) {
+    console.error('Error fetching booked flight data:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch booked flight data' });
+  }
+});
+
 //========================================= HOLIDAYPACKAGE SECTION API ======================================//
 
 
@@ -444,6 +456,7 @@ app.post("/api/bookholiday", async (req, res) => {
   try {
     const {
       holidayTitle,
+      city,
       duration,
       dateOfTravel,
       seller,
@@ -455,6 +468,7 @@ app.post("/api/bookholiday", async (req, res) => {
 
     const newBooking = new BookedHoliday({
       holidayTitle,
+      city,
       duration,
       dateOfTravel,
       seller,
@@ -617,6 +631,7 @@ app.post("/api/bookhotel", async (req, res) => {
   try {
     const {
       hotelName,
+      city,
       checkInDate,
       checkOutDate,
       price,
@@ -631,6 +646,7 @@ app.post("/api/bookhotel", async (req, res) => {
 
     const newBooking = new BookHotel({
       hotelName,
+      city,
       checkInDate,
       checkOutDate,
       price,
@@ -669,7 +685,52 @@ app.post("/api/bookhotel", async (req, res) => {
 });
 
 
+// =======================================  DASHBOARD =============================================//
 
+app.get('/api/admindashboard', async (req, res) => {
+  try {
+    
+    //flight
+    const bookedFlights = await BookedFlight.find();
+    const totalflightbookingprice = bookedFlights.reduce((total, flight) => total + flight.price, 0);
+    const totalEconomyBook = bookedFlights.filter(flight => flight.flightClass === 'Economy').length;
+    const totalBusinessBook = bookedFlights.filter(flight => flight.flightClass === 'Business').length;
+    const totalPremiumEconomyBook = bookedFlights.filter(flight => flight.flightClass === 'PremiumEconomy').length;
+
+   //hotel
+    const bookedHotels = await BookHotel.find();
+    const totalHotelbookingPrice = bookedHotels.reduce((total, hotel) => total + hotel.price, 0);
+    const totalBookedHotelsPerCity = bookedHotels.reduce((acc, hotel) => {
+      acc[hotel.city] = (acc[hotel.city] || 0) + 1;
+      return acc;
+    }, {});
+
+    //holiday
+    const bookedHolidays = await BookedHoliday.find();
+    const totalHolidayBookingPrice = bookedHolidays.reduce((total, holiday) => total + holiday.price, 0);
+    const totalBookedHolidaysPerCity = bookedHolidays.reduce((acc, holiday) => {
+      acc[holiday.city] = (acc[holiday.city] || 0) + 1;
+      return acc;
+    }, {});
+
+
+    res.json({
+      success: true,
+      totalFlightBook: bookedFlights.length,
+      totalflightbookingprice,
+      totalEconomyBook,
+      totalBusinessBook,
+      totalPremiumEconomyBook,
+      totalHotelbookingPrice,
+      totalBookedHotelsPerCity,
+      totalHolidayBookingPrice,
+      totalBookedHolidaysPerCity
+    });
+  } catch (error) {
+    console.error('Error fetching booked flights:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
 
 
 
