@@ -235,6 +235,15 @@ The base URL for the API is `http://localhost:8080`.
     - Method: GET
     - URL: `/api/getallpackages`
     - Description: Retrieves details of all holiday packages.
+29. **Get All Booked Hotel Data**
+    - Method: GET
+    - URL: `/api/getallbookedhotels`
+    - Description: Retrieves details of all booked hotels from the database.
+
+30. **Get All Booked Package Details**
+    - Method: GET
+    - URL: `/api/getallbookedpackage`
+    - Description: Retrieves details of all booked holiday packages from the database.
 
 
 ## Response Format
