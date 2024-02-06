@@ -499,6 +499,18 @@ app.post("/api/bookholiday", async (req, res) => {
   }
 });
 
+// API endpoint to get all booked hotel data 
+app.get('/api/getallbookedhotels', async (req, res) => {
+  try {
+    // Fetch all booked hotels from the database
+    const bookedHotels = await BookHotel.find();
+    res.json(bookedHotels);
+  } catch (error) {
+    console.error('Error fetching booked hotels:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 //========================================= HOTEL SECTION API ======================================//
 
 
@@ -683,6 +695,17 @@ app.post("/api/bookhotel", async (req, res) => {
   }
 });
 
+// API endpoint to get all booked package details
+app.get('/api/getallbookedpackage', async (req, res) => {
+  try {
+    // Fetch all booked holiday packages from the database
+    const bookedPackages = await BookedHoliday.find();
+    res.json(bookedPackages);
+  } catch (error) {
+    console.error('Error fetching booked holiday packages:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // =======================================  DASHBOARD =============================================//
 
