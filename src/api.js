@@ -54,7 +54,6 @@ app.post("/api/register", async (req, res) => {
 app.get("/api/getallregisteruser", async (req, res) => {
   try {
     const allUsers = await registeruser.find({}, { password: 0 });
-    console.log(allUsers);
     res.status(200).json(allUsers);
   } catch (error) {
     console.error(error);

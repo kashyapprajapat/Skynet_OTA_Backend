@@ -18,7 +18,7 @@ async function sendFlightTicket(bookingData) {
     subject: 'Flight Booking Confirmation. - KD TRAVELS',
     html: `
     <div style="text-align: center;">
-    <img src="https://i.postimg.cc/MTT0f7bc/logo.png" alt="KD Travels Logo" width="100" height="100"/>
+    <img src="https://iili.io/J19QQjI.png" alt="KD Travels Logo" width="100" height="100"/>
     <h2 style="text-align: center;">Flight Booking Details</h2>
     <table border="1" cellpadding="5" cellspacing="0" style="margin: 0 auto;">
       <tr>

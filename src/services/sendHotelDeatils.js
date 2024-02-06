@@ -20,7 +20,7 @@ async function sendHotelDetails(bookingData) {
     subject: 'Hotel Booking Confirmation - KD TRAVELS',
     html:`
       <div style="text-align: center;">
-        <img src="https://photos.app.goo.gl/PnrGAystes5CHApc8" alt="KD Travels Logo" width="100" height="100"/>
+        <img src="https://iili.io/J19QQjI.png" alt="KD Travels Logo" width="100" height="100"/>
         <h2 style="text-align: center;">Hotel Booking Details</h2>
         <table border="1" cellpadding="5" cellspacing="0" style="margin: 0 auto;">
           <tr>
