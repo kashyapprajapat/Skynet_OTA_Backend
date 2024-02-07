@@ -319,37 +319,42 @@ app.get("/api/getallbookedflightdata", async (req, res) => {
 
 
 // Add HolidayPackage Detail --CREATE
-app.post("/api/addpackagedetails",imageUploadService.single("holidayImage"),async (req, res) => {
-    try {
-      const result = req.file.path;
+app.post("/api/addpackagedetails", imageUploadService.single("holidayImage"), async (req, res) => {
+  try {
+    const result = req.file.path;
+    console.log(req.file);
+    console.log(result)
 
-      if (!result) {
-        return res
-          .status(400)
-          .json({ success: false, error: "Holiday image is required" });
-      }
-
-      // Create a new holiday package with the file URL
-      const newHolidayPackage = await HolidayPackage.create({
-        holidayImage: result,
-        holidayName: req.body.holidayName,
-        duration: req.body.duration,
-        city: req.body.city,
-        service: req.body.service,
-        price: req.body.price,
-      });
-
-      console.log("New Holiday Package:", newHolidayPackage);
-
-      res
-        .status(201)
-        .json({ success: true, message: "Package Added Sucessfully." });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, error: "Internal Server Error" });
+    if (!result) {
+      return res
+        .status(400)
+        .json({ success: false, error: "Holiday image is required" });
     }
+
+    // Log the file URL
+    console.log("File URL:", result.secure_url);
+
+    // Create a new holiday package with the file URL
+    const newHolidayPackage = await HolidayPackage.create({
+      holidayImage: result,
+      holidayName: req.body.holidayName,
+      duration: req.body.duration,
+      city: req.body.city,
+      service: req.body.service,
+      price: req.body.price,
+    });
+
+    console.log("New Holiday Package:", newHolidayPackage);
+
+    res
+      .status(201)
+      .json({ success: true, message: "Package Added Sucessfully." });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: "Internal Server Error" });
   }
-);
+});
+
 
 // Get all holiday packages  --READ
 app.get("/api/getallpackages", async (req, res) => {
