@@ -74,7 +74,9 @@ async function sendHotelDetails(bookingData) {
         </table>
         <br>
         <h5 style="text-align: center;">Thank you for Hotel booking with KD Travels. Enjoy your day!</h5>
-      </div>
+        <h2 style="text-align: center;">If you cancel  Flight Ticket call this Custome service Number +91 6354195682 or +91 8511017102</h2>
+        <h4 style="text-align: center;">Copyright © 2023 KD  Travellers Limited (formerly known as KD Travellers Private Limited), India. All rights reserved.</h4>
+        </div>
     `,
   };
 

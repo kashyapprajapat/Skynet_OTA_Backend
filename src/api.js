@@ -523,11 +523,15 @@ app.get('/api/getallbookedhotels', async (req, res) => {
 app.post("/api/addhoteldetails",hotelimageuploadService.single("hotelImage"),async (req, res) => {
     try {
       const result = req.file.path;
+        console.log(req.file);
+        console.log(result)
       if (!result) {
         return res
           .status(400)
           .json({ success: false, error: "Hotel image is required" });
       }
+    // Log the file URL
+    console.log("File URL:", result.secure_url);
 
       // Create a new hotel with the file URL
       const newHotel = await hotel.create({
@@ -722,7 +726,7 @@ app.get('/api/admindashboard', async (req, res) => {
     const totalflightbookingprice = bookedFlights.reduce((total, flight) => total + flight.price, 0);
     const totalEconomyBook = bookedFlights.filter(flight => flight.flightClass === 'Economy').length;
     const totalBusinessBook = bookedFlights.filter(flight => flight.flightClass === 'Business').length;
-    const totalPremiumEconomyBook = bookedFlights.filter(flight => flight.flightClass === 'PremiumEconomy').length;
+    const totalPremiumEconomyBook = bookedFlights.filter(flight => flight.flightClass === 'Premium Economy').length;
 
    //hotel
     const bookedHotels = await BookHotel.find();

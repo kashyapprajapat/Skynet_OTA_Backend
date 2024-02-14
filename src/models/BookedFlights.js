@@ -38,7 +38,7 @@ const bookedFlightSchema = new mongoose.Schema({
   },
   flightClass: {
     type: String,
-    enum: ["Economy", "PremiumEconomy", "Business"],
+    enum: ["Economy", "Premium Economy", "Business"],
     required: [true, "Flight class is required"],
   },
   price: {
