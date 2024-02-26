@@ -1,0 +1,944 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "OTA Backend API",
+      "version": "1.0.0",
+      "description": "API documentation for OTA backend server 🗄️🌐🖥️...."
+    },
+    "schemes": ["http","https"],
+    "paths": {
+      "/": {
+        "get": {
+          "summary": "Check if the backend is working",
+          "responses": {
+            "200": {
+              "description": "Backend is working"
+            }
+          }
+        }
+      },
+      "/api/register": {
+        "post": {
+          "summary": "Register a new user",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User registration data",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "User registered successfully"
+            },
+            "400": {
+              "description": "Registration failed"
+            }
+          }
+        }
+      },
+      "/api/getallregisteruser": {
+        "get": {
+          "summary": "Get all data of registered users",
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/login": {
+        "post": {
+          "summary": "Login user and send JWT token",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User login data",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Login successful",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "token": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid Email or Password"
+            },
+            "400": {
+              "description": "Login failed"
+            }
+          }
+        }
+      },
+      "/api/sendotp": {
+        "post": {
+          "summary": "Forgot password, send OTP on email",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User email",
+              "schema": {
+                "$ref": "#/definitions/UserEmail"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OTP sent successfully",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "frontendotp": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "Invalid Email"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/updatepassword": {
+        "patch": {
+          "summary": "Update Password of register user",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "User email and new password",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Password updated successfully"
+            },
+            "401": {
+              "description": "Invalid Email"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/addflight": {
+        "post": {
+          "summary": "Add flight details",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Flight details",
+              "schema": {
+                "$ref": "#/definitions/Flight"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Flight details added successfully"
+            },
+            "400": {
+              "description": "Missing required fields or bad request"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/getflights": {
+        "get": {
+          "summary": "Get all flight details",
+          "responses": {
+            "200": {
+              "description": "List of flights",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Flight"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/findflights": {
+        "post": {
+          "summary": "Get flight details based on search",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Search criteria",
+              "schema": {
+                "$ref": "#/definitions/FlightSearch"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of matching flights",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Flight"
+                }
+              }
+            },
+            "400": {
+              "description": "Missing required fields or bad request"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/updateflight/{id}": {
+        "patch": {
+          "summary": "Update Flight details by id",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string",
+              "description": "Flight ID"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Updated flight details",
+              "schema": {
+                "$ref": "#/definitions/Flight"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Flight details updated successfully"
+            },
+            "404": {
+              "description": "Flight not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/deleteflight/{id}": {
+        "delete": {
+          "summary": "Delete Flight by ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string",
+              "description": "Flight ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Flight Deleted successfully"
+            },
+            "404": {
+              "description": "Flight not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/bookflight": {
+        "post": {
+          "summary": "Book flight and send ticket",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Booking details",
+              "schema": {
+                "$ref": "#/definitions/BookedFlight"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Flight booked successfully"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/getallbookedflightdata": {
+        "get": {
+          "summary": "Get all booked flight data",
+          "responses": {
+            "200": {
+              "description": "List of booked flights",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/BookedFlight"
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/addpackagedetails": {
+        "post": {
+          "summary": "Add HolidayPackage Detail",
+          "consumes": ["multipart/form-data"],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "holidayImage",
+              "type": "file",
+              "description": "Holiday package image"
+            },
+            {
+              "in": "formData",
+              "name": "holidayName",
+              "type": "string",
+              "description": "Name of the holiday package"
+            },
+            {
+              "in": "formData",
+              "name": "duration",
+              "type": "string",
+              "description": "Duration of the holiday package"
+            },
+            {
+              "in": "formData",
+              "name": "city",
+              "type": "string",
+              "description": "City of the holiday package"
+            },
+            {
+              "in": "formData",
+              "name": "service",
+              "type": "string",
+              "description": "Service provided in the holiday package"
+            },
+            {
+              "in": "formData",
+              "name": "price",
+              "type": "number",
+              "description": "Price of the holiday package"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Package Added Successfully"
+            },
+            "400": {
+              "description": "Bad Request or Missing Required Fields"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/getallpackages": {
+        "get": {
+          "summary": "Get all holiday packages",
+          "responses": {
+            "200": {
+              "description": "List of holiday packages"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/getpackagesbycity": {
+        "post": {
+          "summary": "Get holiday packages by city",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "City name",
+              "schema": {
+                "$ref": "#/definitions/CitySearch"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of holiday packages by city"
+            },
+            "404": {
+              "description": "No holiday packages found for the specified city"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/updatepackage/{id}": {
+        "patch": {
+          "summary": "Update holiday package by ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string",
+              "description": "Holiday package ID"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Updated holiday package details",
+              "schema": {
+                "$ref": "#/definitions/HolidayPackage"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Package Updated Successfully"
+            },
+            "404": {
+              "description": "Holiday package not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/deletepackage/{id}": {
+        "delete": {
+          "summary": "Delete holiday package by ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string",
+              "description": "Holiday package ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Holiday package Deleted successfully"
+            },
+            "404": {
+              "description": "Holiday package not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/bookholiday": {
+        "post": {
+          "summary": "Book holiday package",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Booking details",
+              "schema": {
+                "$ref": "#/definitions/BookedHoliday"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Package booked successfully"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/addhoteldetails": {
+        "post": {
+          "summary": "Add Hotel Detail",
+          "consumes": ["multipart/form-data"],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "hotelImage",
+              "type": "file",
+              "description": "Hotel image"
+            },
+            {
+              "in": "formData",
+              "name": "hotelName",
+              "type": "string",
+              "description": "Name of the hotel"
+            },
+            {
+              "in": "formData",
+              "name": "rating",
+              "type": "number",
+              "description": "Rating of the hotel"
+            },
+            {
+              "in": "formData",
+              "name": "city",
+              "type": "string",
+              "description": "City where the hotel is located"
+            },
+            {
+              "in": "formData",
+              "name": "service",
+              "type": "string",
+              "description": "Services provided by the hotel"
+            },
+            {
+              "in": "formData",
+              "name": "price",
+              "type": "number",
+              "description": "Price of the hotel"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Hotel Detail Added Successfully"
+            },
+            "400": {
+              "description": "Bad Request or Missing Required Fields"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/gethoteldetails": {
+        "get": {
+          "summary": "Get All Hotels Details",
+          "responses": {
+            "200": {
+              "description": "List of hotels"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/gethotelsbycity": {
+        "post": {
+          "summary": "Get Hotels by City",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "City name",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "city": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "List of hotels in the specified city"
+            },
+            "400": {
+              "description": "City parameter is required"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/updatehotel/{id}": {
+        "patch": {
+          "summary": "Update Hotel by ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string",
+              "description": "Hotel ID"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Updated hotel details",
+              "schema": {
+                "$ref": "#/definitions/Hotel"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Hotel Updated Successfully"
+            },
+            "404": {
+              "description": "Hotel not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/deletehotel/{id}": {
+        "delete": {
+          "summary": "Delete Hotel by ID",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "type": "string",
+              "description": "Hotel ID"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Hotel Deleted Successfully"
+            },
+            "404": {
+              "description": "Hotel not found"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/bookhotel": {
+        "post": {
+          "summary": "Book Hotel",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Booking details",
+              "schema": {
+                "$ref": "#/definitions/BookHotel"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Hotel booked successfully"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/getallbookedpackage": {
+        "get": {
+          "summary": "Get All Booked Hotel Details",
+          "responses": {
+            "200": {
+              "description": "List of booked hotels"
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      },
+      "/api/admindashboard": {
+        "get": {
+          "summary": "Get admin dashboard data",
+          "responses": {
+            "200": {
+              "description": "Admin dashboard data retrieved successfully",
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "success": {
+                    "type": "boolean"
+                  },
+                  "totalFlightBook": {
+                    "type": "integer"
+                  },
+                  "totalflightbookingprice": {
+                    "type": "number"
+                  },
+                  "totalEconomyBook": {
+                    "type": "integer"
+                  },
+                  "totalBusinessBook": {
+                    "type": "integer"
+                  },
+                  "totalPremiumEconomyBook": {
+                    "type": "integer"
+                  },
+                  "totalHotelbookingPrice": {
+                    "type": "number"
+                  },
+                  "totalBookedHotelsPerCity": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  },
+                  "totalHolidayBookingPrice": {
+                    "type": "number"
+                  },
+                  "totalBookedHolidaysPerCity": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Internal Server Error"
+            }
+          }
+        }
+      }      
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Flight": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "flightClass": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      },
+      "BookedFlight": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "seat": {
+            "type": "string"
+          },
+          "flightClass": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      },
+      "BookedHoliday": {
+        "type": "object",
+        "properties": {
+          "holidayTitle": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "dateOfTravel": {
+            "type": "string"
+          },
+          "seller": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "HolidayPackage": {
+        "type": "object",
+        "properties": {
+          "holidayImage": {
+            "type": "string",
+            "format": "binary"
+          },
+          "holidayName": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      },
+      "Hotel": {
+        "type": "object",
+        "properties": {
+          "hotelImage": {
+            "type": "string"
+          },
+          "hotelName": {
+            "type": "string"
+          },
+          "rating": {
+            "type": "number"
+          },
+          "city": {
+            "type": "string"
+          },
+          "service": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          }
+        }
+      },
+      "BookHotel": {
+        "type": "object",
+        "properties": {
+          "hotelName": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "checkInDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "checkOutDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "price": {
+            "type": "number"
+          },
+          "rating": {
+            "type": "number"
+          },
+          "service": {
+            "type": "string"
+          },
+          "adult": {
+            "type": "number"
+          },
+          "children": {
+            "type": "number"
+          },
+          "hotelroom": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+  
