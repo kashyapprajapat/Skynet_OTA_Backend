@@ -763,6 +763,12 @@
       "User": {
         "type": "object",
         "properties": {
+          "fullName": {
+            "type": "string"
+          },
+          "mobileNumber": {
+            "type": "number"
+          },
           "email": {
             "type": "string"
           },
