@@ -2,6 +2,27 @@
 
 This repository contains the documentation for the Ota-Backend API. The API provides endpoints for various functionalities related to flight booking, hotel booking, user registration, and more.
 
+### Environment Variables
+
+Before running the application, make sure to create a `.env` file in the root directory of the project and add the following content to it:
+
+| Variable              | Description                                       |
+|-----------------------|---------------------------------------------------|
+| PORT                  | Port number on which the server will listen       |
+| MONGODB_URL           | URL of your MongoDB Atlas database                |
+| JWTSECRETKEY          | Secret key used for generating and verifying JWTs |
+| NODEMAILER_EMAIL      | SMTP email for sending emails to users            |
+| NODEMAILER_PASSWORD   | Password for the SMTP email account               |
+| CLOUDINARY_CLOUD_NAME | Cloudinary cloud name for storing images          |
+| CLOUDINARY_API_NAME   | Cloudinary API key                                |
+| CLOUDINARY_API_SECRET | Cloudinary API secret                             |
+
+
+
+Replace the placeholder values with your actual values. This table provides a clear overview of each environment variable and its purpose.
+
+
+
 ## Base URL
 
 The base URL for the API is `http://localhost:8080`.
