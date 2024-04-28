@@ -29,7 +29,7 @@ The base URL for the API is `http://localhost:8080`.
 
 ### when you run on localhost:8000
 https://res.cloudinary.com/dpf5bkafv/image/upload/v1714275456/OTA_Backend_Swagger_API_qdxaxv.png
-
+https://asset.cloudinary.com/dpf5bkafv/810284741e3708d473cc4da07ae1a134
 
 
 ## Endpoints
