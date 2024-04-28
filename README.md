@@ -27,6 +27,11 @@ Replace the placeholder values with your actual values. This table provides a cl
 
 The base URL for the API is `http://localhost:8080`.
 
+### when you run on localhost:8000
+https://res.cloudinary.com/dpf5bkafv/image/upload/v1714275456/OTA_Backend_Swagger_API_qdxaxv.png
+
+
+
 ## Endpoints
 
 1. **Get all API Endpoints**
