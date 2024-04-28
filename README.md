@@ -31,7 +31,7 @@ The base URL for the API is `http://localhost:8080`.
 
 ### when you run on localhost:8000
 
-![kd travel backend App](./OTA_Backend_Swagger_API_qdxaxv.png)
+![kd travel backend App](./OTA_Backend_Swagger_API.png)
 
 
 ## Endpoints
