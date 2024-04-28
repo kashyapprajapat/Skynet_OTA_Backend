@@ -26,7 +26,8 @@ Replace the placeholder values with your actual values. This table provides a cl
 ## Base URL
 
 The base URL for the API is `http://localhost:8080`.
-https://github.com/kashyapprajapat/Skynet_OTA_Backend/blob/main/Backend_sucess_localhost.png
+
+![kd travel backend App](./Backend_sucess_localhost.png)
 
 ### when you run on localhost:8000
 https://res.cloudinary.com/dpf5bkafv/image/upload/v1714275456/OTA_Backend_Swagger_API_qdxaxv.png
