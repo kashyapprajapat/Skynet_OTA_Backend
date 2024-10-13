@@ -23,9 +23,17 @@ Replace the placeholder values with your actual values. This table provides a cl
 
 ## whole project overview file
 
-- [Final Report](./KA5_FinalReport.pdf)
-- [Final Presentation](./ka5.pdf)
+<p align="center">
+  <a href="https://github.com/kashyapprajapat/Skynet_OTA_Backend/raw/main/KA5_FinalReport.pdf">
+    <button>Download Final Report</button>
+  </a>
+</p>
 
+<p align="center">
+  <a href="https://github.com/kashyapprajapat/Skynet_OTA_Backend/raw/main/ka5.pdf">
+    <button>Download Final Presentation</button>
+  </a>
+</p>
 ## Base URL
 
 The base URL for the API is `http://localhost:8080`.
